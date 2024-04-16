@@ -4,11 +4,20 @@ import {
     Route //will be put into the helper 
 } from 'react-router-dom';
 import App from './App';
-
+import Landing from './Pages/Index';
+import Show from './Pages/Show';
+import { peopleLoader, personLoader } from './loaders'; //import person
+import { updateAction, createAction, deleteAction } from './actions'; //<------ we just added deleteAction to this
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/' element={<App />}></Route>
+        <Route path='/' element={<App /> }>
+            <Route path='' element={<Landing/>} loader={peopleLoader}/>
+            <Route path=':id' element={<Show/>} loader={personLoader}/>
+            <Route path='create' action={createAction}/>
+            <Route path='update/:id' action={updateAction}/> 
+            <Route path='delete/:id' action={deleteAction}/>  {/*<------ we just added this*/}
+        </Route>
     )
 )
 
